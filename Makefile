@@ -22,6 +22,11 @@ run:
 test:
 	go test
 
+.PHONY: cov
+cov:
+	go test -coverprofile=.coverage
+	go tool cover -html=.coverage
+
 .PHONY: check
 check:
 	golint ./...

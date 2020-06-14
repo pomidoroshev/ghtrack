@@ -1,4 +1,4 @@
-FROM golang:1.13.7
+FROM golang:1.14.3
 
 WORKDIR /go/src/app
 
@@ -15,6 +15,6 @@ WORKDIR /app
 
 COPY --from=0 /go/src/app/bin/main .
 
-EXPOSE 8080
+EXPOSE 8081
 
 CMD ["./main"]

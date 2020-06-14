@@ -4,3 +4,4 @@ bin
 Dockerfile
 Dockerfile.test
 .travis.yml
+.coverage
