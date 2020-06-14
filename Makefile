@@ -7,10 +7,6 @@ $(DIST): $(SRC)
 	go build -o $(DIST) $(SRC)
 
 .PHONY: clean
-build-alpine:
-	CGO_ENABLED=0 GOOS=linux go build -installsuffix cgo -o bin/main .
-
-.PHONY: clean
 clean:
 	rm $(DIST)
 

@@ -1,8 +1,0 @@
-FROM golang:1.14.3
-
-WORKDIR /go/src/app
-COPY . .
-
-RUN go get -t -v ./...
-
-CMD ["go", "test"]

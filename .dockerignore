@@ -1,7 +1,0 @@
-bin
-.dockerignore
-.gitignore
-Dockerfile
-Dockerfile.test
-.travis.yml
-.coverage
