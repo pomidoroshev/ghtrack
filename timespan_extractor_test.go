@@ -2,12 +2,13 @@ package main
 
 import (
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNewTimespanExtractor(t *testing.T) {
-	assert.NotEmpty(t, NewTimespanExtractor(`#t ([\d\w]+)`))
+	assert.NotEmpty(t, NewTimespanExtractor(timespanPattern))
 }
 
 func TestNewTimespanExtractorPanic(t *testing.T) {
@@ -16,10 +17,10 @@ func TestNewTimespanExtractorPanic(t *testing.T) {
 
 func TestNewTimespanExtractorParse(t *testing.T) {
 	assert := assert.New(t)
-	elapser := NewTimespanExtractor(`#t ([\d\w]+)`)
+	elapser := NewTimespanExtractor(timespanPattern)
 	tests := []struct {
 		input    string
-		expected int
+		expected time.Duration
 	}{
 		{"", 0},
 		{"#t", 0},
@@ -29,7 +30,7 @@ func TestNewTimespanExtractorParse(t *testing.T) {
 	}
 	for _, test := range tests {
 		seconds, err := elapser.Parse(test.input)
-		assert.Equal(test.expected, seconds)
+		assert.Equal(test.expected*time.Second, seconds)
 		assert.Nil(err)
 	}
 }
@@ -45,7 +46,7 @@ func TestNewTimespanExtractorParseError(t *testing.T) {
 	}
 	for _, input := range inputs {
 		seconds, err := elapser.Parse(input)
-		assert.Equal(0, seconds)
+		assert.Equal(time.Duration(0), seconds)
 		assert.Error(err)
 	}
 }

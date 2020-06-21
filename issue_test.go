@@ -2,41 +2,41 @@ package main
 
 import (
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestCommentElapsed(t *testing.T) {
 	assert := assert.New(t)
-	extractor := NewTimespanExtractor(`#t ([\d\w]+)`)
+	extractor := NewTimespanExtractor(timespanPattern)
 	tests := []struct {
-		text    string
-		seconds int
+		text     string
+		duration time.Duration
 	}{
 		{"Hello #t 1h", 3600},
 	}
 
 	for _, test := range tests {
-		comment := NewComment(test.text, &extractor)
-		assert.Equal(test.seconds, comment.Elapsed())
+		comment := NewComment(test.text)
+		assert.Equal(test.duration*time.Second, comment.Elapsed(extractor))
 	}
 }
 
 func TestIssueElapsed(t *testing.T) {
 	assert := assert.New(t)
-	extractor := NewTimespanExtractor(`#t ([\d\w]+)`)
+	extractor := NewTimespanExtractor(timespanPattern)
 	tests := []struct {
-		comments *[]Comment
-		seconds  int
+		comments []Comment
+		duration time.Duration
 	}{
-		{&[]Comment{NewComment("#t 1h", &extractor), NewComment("#t 30m", &extractor)}, 5400},
-		{&[]Comment{NewComment("#t 1", &extractor)}, 0},
-		{&[]Comment{}, 0},
-		{nil, 0},
+		{[]Comment{NewComment("#t 1h"), NewComment("#t 30m")}, 5400},
+		{[]Comment{NewComment("#t 1")}, 0},
+		{[]Comment{}, 0},
 	}
 
 	for _, test := range tests {
-		issue := NewIssue(test.comments)
-		assert.Equal(test.seconds, issue.Elapsed())
+		issue := NewIssue("some title", test.comments)
+		assert.Equal(test.duration*time.Second, issue.Elapsed(extractor))
 	}
 }

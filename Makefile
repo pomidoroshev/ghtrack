@@ -1,10 +1,14 @@
 SRC = *.go
-DIST = bin/main
+DIST = bin/ghtrack
+BUILD = go build
 
 default: $(DIST)
 
 $(DIST): $(SRC)
-	go build -o $(DIST) $(SRC)
+	$(BUILD) -o $(DIST) $(SRC)
+
+release:
+	$(BUILD) -ldflags="-s -w" -o $(DIST) $(SRC)
 
 .PHONY: clean
 clean:
@@ -16,7 +20,7 @@ run:
 
 .PHONY: test
 test:
-	go test
+	go test -v
 
 .PHONY: cov
 cov:

@@ -1,51 +1,52 @@
 package main
 
-// Trackable object can be measured in seconds
-type Trackable interface {
-	Elapsed() int
+import "time"
+
+type Measurable interface {
+	Title() string
+	Elapsed(extractor TimespanExtractor) time.Duration
 }
 
 // Issue represents project issue
 type Issue struct {
-	comments *[]Comment
+	title    string
+	Comments []Comment
 }
 
 // NewIssue creates an issue with given comments
-func NewIssue(comments *[]Comment) Issue {
-	return Issue{comments: comments}
+func NewIssue(title string, comments []Comment) Issue {
+	return Issue{title: title, Comments: comments}
 }
 
-// Elapsed returns sum of seconds from all comments
-func (i *Issue) Elapsed() int {
-	if i.comments == nil {
-		return 0
+// Elapsed returns total durations from all comments
+func (i Issue) Elapsed(extractor TimespanExtractor) time.Duration {
+	var duration time.Duration
+	for _, c := range i.Comments {
+		duration += c.Elapsed(extractor)
 	}
-	seconds := 0
-	for _, c := range *i.comments {
-		seconds += c.Elapsed()
-	}
-	return seconds
+	return duration
+}
+
+// Title returns issue title
+func (i Issue) Title() string {
+	return i.title
 }
 
 // Comment is an issue comment that may contain timespan
 type Comment struct {
-	text      string
-	extractor *TimespanExtractor
+	text string
 }
 
 // NewComment creates a comment with text and elapser
-func NewComment(text string, extractor *TimespanExtractor) Comment {
-	return Comment{
-		text:      text,
-		extractor: extractor,
-	}
+func NewComment(text string) Comment {
+	return Comment{text: text}
 }
 
-// Elapsed returns seconds from parsed timespan in comment text
-func (c *Comment) Elapsed() int {
-	seconds, err := c.extractor.Parse(c.text)
+// Elapsed returns duration from parsed timespan in comment text
+func (c Comment) Elapsed(extractor TimespanExtractor) time.Duration {
+	duration, err := extractor.Parse(c.text)
 	if err != nil {
 		return 0
 	}
-	return seconds
+	return duration
 }
