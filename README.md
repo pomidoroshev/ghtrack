@@ -1,5 +1,5 @@
 # ghtrack - simple GitHub issue-based time tracker
-![Go Check](https://github.com/pomidoroshev/ghtrack/workflows/Go%20Check/badge.svg)
+[![Go Check](https://github.com/pomidoroshev/ghtrack/workflows/Go%20Check/badge.svg?branch=master)](https://github.com/pomidoroshev/ghtrack/actions)
 
 ## Configuration
 
