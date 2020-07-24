@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: compile and release
-      uses: pomidoroshev/go-release.action@v1.0.5
+      uses: pomidoroshev/go-release.action@master
       env:
         GOARCH: "386"
         GOOS: linux
@@ -26,7 +26,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: compile and release
-      uses: pomidoroshev/go-release.action@v1.0.5
+      uses: pomidoroshev/go-release.action@master
       env:
         GOARCH: amd64
         GOOS: linux
@@ -36,7 +36,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: compile and release
-      uses: pomidoroshev/go-release.action@v1.0.5
+      uses: pomidoroshev/go-release.action@master
       env:
         GOARCH: "arm"
         GOOS: linux
@@ -46,7 +46,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: compile and release
-      uses: pomidoroshev/go-release.action@v1.0.5
+      uses: pomidoroshev/go-release.action@master
       env:
         GOARCH: arm64
         GOOS: linux
@@ -56,7 +56,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: compile and release
-      uses: pomidoroshev/go-release.action@v1.0.5
+      uses: pomidoroshev/go-release.action@master
       env:
         GOARCH: amd64
         GOOS: darwin
@@ -66,7 +66,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: compile and release
-      uses: pomidoroshev/go-release.action@v1.0.5
+      uses: pomidoroshev/go-release.action@master
       env:
         GOARCH: "386"
         GOOS: windows
@@ -76,7 +76,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: compile and release
-      uses: pomidoroshev/go-release.action@v1.0.5
+      uses: pomidoroshev/go-release.action@master
       env:
         GOARCH: amd64
         GOOS: windows
