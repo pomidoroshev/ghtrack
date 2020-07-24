@@ -11,7 +11,7 @@ First you should [generate](https://github.com/settings/tokens/new) new personal
 Copy and paste it to `config.ini`:
 
 ```
-$ sed 's/github-access-token/46257ee7b1f974e89daa99b1bcd093e08678e5db/g' config-example.ini > config.ini
+$ sed 's/#token#/46257ee7b1f974e89daa99b1bcd093e08678e5db/g' config-example.ini > config.ini
 ```
 
 ## Usage
