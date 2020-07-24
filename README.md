@@ -1,4 +1,6 @@
 # ghtrack - simple GitHub issue-based time tracker
+![Go Check](https://github.com/pomidoroshev/ghtrack/workflows/Go%20Check/badge.svg)
+![Go Release](https://github.com/pomidoroshev/ghtrack/workflows/Go%20Release/badge.svg)
 
 ## Configuration
 
