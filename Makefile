@@ -1,5 +1,5 @@
 NAME = ghtrack
-SRC = *.go
+SRC = ./app
 BINDIR = ./bin
 DIST = $(BINDIR)/$(NAME)
 BUILD = go build
@@ -27,28 +27,28 @@ clean:
 
 .PHONY: run
 run:
-	go run .
+	go run $(SRC)
 
 .PHONY: test
 test:
-	go test -v
+	go test -v $(SRC)
 
 .PHONY: cov
 cov:
-	go test -coverprofile=.coverage
+	go test -coverprofile=.coverage $(SRC)
 	go tool cover -html=.coverage
 
 .PHONY: check
 check:
-	golint ./...
+	golint $(SRC)/...
 
 .PHONY: format
 format:
-	gofmt -s -w .
+	gofmt -s -w $(SRC)
 
 .PHONY: imports
 imports:
-	goimports -w .
+	goimports -w $(SRC)
 
 .PHONY: fmt
 fmt: format imports
