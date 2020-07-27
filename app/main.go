@@ -21,5 +21,5 @@ func main() {
 		totalTime += issue.Elapsed(extractor)
 	}
 
-	fmt.Printf("Total: %s", totalTime)
+	fmt.Printf("Total: %s\n", totalTime)
 }
