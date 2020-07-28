@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"log"
+	"os"
 
 	"gopkg.in/ini.v1"
 )
@@ -15,10 +17,42 @@ type Credentials struct {
 }
 
 func NewConfig(configName string) *Config {
-	credentials := Config{}
-	err := ini.MapTo(&credentials, configName)
-	if err != nil {
-		log.Fatalf("Fail to map config: %v", err)
+	config := Config{}
+	configExists := true
+	if _, err := os.Stat(configName); os.IsNotExist(err) {
+		configExists = false
 	}
-	return &credentials
+	if configExists {
+		err := ini.MapTo(&config, configName)
+		if err != nil {
+			log.Fatalf("Fail to map config: %v", err)
+		}
+	}
+
+	if config.Credentials.Token != "" {
+		return &config
+	}
+
+	config.FromInput(configName)
+	return &config
+}
+
+func (c *Config) FromInput(exportFileName string) {
+	var token string
+	fmt.Printf("Your GitHub token: ")
+	fmt.Scan(&token)
+	c.Credentials.Token = token
+	err := c.Export(exportFileName)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func (c *Config) Export(fileName string) error {
+	file := ini.Empty()
+	err := file.ReflectFrom(c)
+	if err != nil {
+		return err
+	}
+	return file.SaveTo(fileName)
 }

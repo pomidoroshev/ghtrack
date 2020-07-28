@@ -22,17 +22,20 @@ Download [latest release](https://github.com/pomidoroshev/ghtrack/releases/lates
 
 ## Configuration
 
-First you should [generate](https://github.com/settings/tokens/new) new personal access token with `repo` scope:
+[Create](https://github.com/settings/tokens/new) new personal access token with `repo` scope:
 
 ![](images/token-1.png)
 
 ![](images/token-2.png)
 
-Copy and paste it to `config.ini`:
+The first time you run `ghtrack`, you will be asked to enter this token:
 
 ```
-$ sed 's/#token#/46257ee7b1f974e89daa99b1bcd093e08678e5db/g' config-example.ini > config.ini
+$ ./ghtrack -m 1 -s closed pomidoroshev ghtrack
+Your GitHub token:
 ```
+
+Paste your token. Credentials are saved in `config.ini`.
 
 ## Usage
 
@@ -77,8 +80,7 @@ $ pre-commit install --install-hooks
 ### Debug build
 
 ```
-$ make clean && make
-rm ./bin/ghtrack
+$ make
 go build -o ./bin/ghtrack ./app
 $ bin/ghtrack
 Usage: bin/ghtrack [OPTIONS] owner repository
